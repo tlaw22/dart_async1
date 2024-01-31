@@ -3,17 +3,20 @@ import 'dart:io';
 import 'package:test/test.dart';
 
 void main(List<String> arguments) {
-  print("Preparing to wait 15 seconds");
-  longPress();
+  print("Preparing to wait 7 seconds");
+  Future<String> result = longPress();
+  result.then((String value) => print(value)).catchError((error) {
+    print(error);
+  }).whenComplete(() => prints("complete"));
+
   print("completing operation");
-  print("Operation complete!");
+  print("Still working ... continueing");
 }
 
-longPress() {
-  // sleep(Duration(seconds: 15));
-Future.delayed(Duration(seconds: 7), () {
-  print('Async Complete'); 
-});
-
-  print('Sync Complete');
+Future<String> longPress() {
+  //delayed sleep(Duration(seconds: 15));
+  Future<String> delayed = Future.delayed(Duration(seconds: 7), () {
+    return "Sync Complete";
+  });
+  return delayed;
 }
